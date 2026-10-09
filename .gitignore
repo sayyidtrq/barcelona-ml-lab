@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Data & artifacts (jangan commit data mentah / model besar)
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+models/*
+reports/figures/*
+!**/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets
+*.key
+secrets.*

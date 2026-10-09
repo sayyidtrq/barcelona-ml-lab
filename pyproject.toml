@@ -1,0 +1,19 @@
+[project]
+name = "barca-ml"
+version = "0.1.0"
+description = "Prediksi hasil, gol/xG, dan gaya main FC Barcelona (klasifikasi, regresi, clustering)"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

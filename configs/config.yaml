@@ -1,0 +1,24 @@
+project:
+  team: Barcelona
+  random_state: 42
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  models: models
+  figures: reports/figures
+
+# Split berbasis WAKTU (jangan random!). Isi nama musim sesuai data yang ada.
+split:
+  train_until_season: "2019/2020"
+  val_season: "2020/2021"
+  test_season: null   # diisi musim terbaru setelah data baru masuk
+
+features:
+  form_window: 5          # jumlah laga terakhir untuk rolling form
+  min_matches_history: 3  # buang baris tanpa histori cukup
+
+targets:
+  classification: result      # Win / Draw / Lose (sudut pandang Barcelona)
+  regression: barca_goals     # atau barca_xg
