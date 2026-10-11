@@ -1,4 +1,5 @@
 """Load config.yaml dan sediakan path absolut relatif ke root repo."""
+
 from __future__ import annotations
 
 from pathlib import Path

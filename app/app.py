@@ -1,4 +1,5 @@
 """Gradio app untuk Hugging Face Spaces (stub). Jalankan lokal: python app/app.py"""
+
 import gradio as gr
 
 
@@ -12,7 +13,9 @@ demo = gr.Interface(
     inputs=[gr.Textbox(label="Lawan"), gr.Checkbox(label="Barcelona main kandang")],
     outputs=gr.Label(label="Probabilitas hasil"),
     title="Barca Match Predictor",
-    description="Prediksi probabilitas hasil laga Barcelona. Untuk hiburan dan analitik, bukan taruhan.",
+    description=(
+        "Prediksi probabilitas hasil laga Barcelona. Untuk hiburan dan analitik, bukan taruhan."
+    ),
 )
 
 if __name__ == "__main__":

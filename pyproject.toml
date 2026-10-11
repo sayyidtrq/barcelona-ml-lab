@@ -14,6 +14,9 @@ src = ["src", "tests"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*" = ["F401"]  # template cells import libs used later
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]

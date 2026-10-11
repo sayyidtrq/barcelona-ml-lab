@@ -1,4 +1,5 @@
 """Inferensi: dipakai oleh app Gradio / API."""
+
 from __future__ import annotations
 
 import joblib
@@ -15,4 +16,4 @@ def predict_proba(model, features: dict) -> dict:
 
     X = pd.DataFrame([features])
     proba = model.predict_proba(X)[0]
-    return dict(zip(model.classes_, map(float, proba)))
+    return dict(zip(model.classes_, map(float, proba), strict=True))

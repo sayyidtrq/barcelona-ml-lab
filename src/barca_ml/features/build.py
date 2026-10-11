@@ -3,6 +3,7 @@
 ATURAN EMAS: fitur untuk pertandingan ke-t hanya boleh dihitung dari pertandingan < t.
 Jangan pernah memakai skor akhir / statistik event dari pertandingan yang sedang diprediksi.
 """
+
 from __future__ import annotations
 
 import pandas as pd
