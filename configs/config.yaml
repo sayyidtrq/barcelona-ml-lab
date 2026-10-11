@@ -9,6 +9,11 @@ paths:
   models: models
   figures: reports/figures
 
+data:
+  football_data:
+    league: SP1          # La Liga
+    first_season: 2017   # 2017/2018
+
 # Split berbasis WAKTU (jangan random!). Isi nama musim sesuai data yang ada.
 split:
   train_until_season: "2019/2020"

@@ -13,9 +13,9 @@ Legenda: `[ ]` belum, `[x]` selesai. Kerjakan berurutan; tiap fase punya kriteri
 
 ## Fase 1 - Data & skema fitur
 - [ ] Validasi data lama: semantik `Poss`, duplikasi, tipe data, nilai hilang (`referee.name` kosong 33/85)
-- [ ] Rancang **skema tabel kanonik** per laga: tanggal, musim, kandang/tandang, lawan, gol, xG (jika ada), hasil
+- [x] Rancang **skema tabel kanonik** per laga: tanggal, musim, kandang/tandang, lawan, gol, xG (jika ada), hasil
 - [ ] Ingest data baru (urutan prioritas): football-data.co.uk (hasil + odds) -> Understat (xG) -> StatsBomb open data untuk detail event
-- [ ] Skrip `scripts/fetch_*.py` yang idempoten; simpan ke `data/raw/` dengan tanggal ambil
+- [x] Skrip `scripts/fetch_*.py` yang idempoten; simpan ke `data/raw/` dengan tanggal ambil
 - [ ] Cek ketentuan penggunaan/lisensi tiap sumber, catat di `docs/data_sources.md`
 - [ ] Gabungkan jadi satu dataset 2017/18 sampai musim terbaru
 
@@ -77,3 +77,4 @@ Legenda: `[ ]` belum, `[x]` selesai. Kerjakan berurutan; tiap fase punya kriteri
 
 ## Log progres
 - 2026-10-09: boilerplate dibuat, `CLAUDE.md` dan `PLAN.md` ditulis, EDA lama dibaca dan temuan dicatat.
+- 2026-10-11: pipeline football-data.co.uk (`scripts/fetch_football_data.py`, `barca_ml.data.football_data`) + skema kanonik + tes; lint CI dibereskan. Fetch belum jalan lokal: domain diblokir ISP (perlu VPN/Colab/Actions).
