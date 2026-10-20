@@ -90,6 +90,10 @@ def team_view(matches: pd.DataFrame, team: str = "Barcelona") -> pd.DataFrame:
         df[f"opp_{side}"] = df[f"away_{side}"].where(home, df[f"home_{side}"])
     df["odds_win"] = df["odds_home"].where(home, df["odds_away"])
     df["odds_lose"] = df["odds_away"].where(home, df["odds_home"])
+    has_elo = "home_elo" in df  # set by barca_ml.features.build.add_elo on the league table
+    if has_elo:
+        df["team_elo"] = df["home_elo"].where(home, df["away_elo"])
+        df["opp_elo"] = df["away_elo"].where(home, df["home_elo"])
     diff = df["team_goals"] - df["opp_goals"]
     df["result"] = pd.cut(diff, [-99, -1, 0, 99], labels=["Lose", "Draw", "Win"]).astype(str)
     keep = [
@@ -109,4 +113,6 @@ def team_view(matches: pd.DataFrame, team: str = "Barcelona") -> pd.DataFrame:
         "odds_lose",
         "result",
     ]
+    if has_elo:
+        keep[-1:-1] = ["team_elo", "opp_elo"]
     return df[keep].sort_values("match_date").reset_index(drop=True)
