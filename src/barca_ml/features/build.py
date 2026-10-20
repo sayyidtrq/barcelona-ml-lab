@@ -119,3 +119,27 @@ def add_standings(matches: pd.DataFrame) -> pd.DataFrame:
     for name, values in cols.items():
         out[name] = values
     return out
+
+
+def add_head_to_head(df: pd.DataFrame, window: int = 5) -> pd.DataFrame:
+    """Record against the same opponent in the last `window` meetings before this match.
+
+    df = one team's view (needs `opponent`, `result`, `team_goals`, `opp_goals`). Adds
+    `h2h_points` (mean points), `h2h_goal_diff` (mean goal difference) and `h2h_n` (meetings
+    used; 0 -> the means are NaN). Only meetings inside `df` count, so the history is limited
+    to the seasons loaded.
+    """
+    out = df.sort_values("match_date").copy()
+    pts = out["result"].map({"Win": 3, "Draw": 1, "Lose": 0})
+    gd = out["team_goals"] - out["opp_goals"]
+    by_opp = out["opponent"]
+
+    def past(s: pd.Series, how: str) -> pd.Series:
+        return s.groupby(by_opp).transform(
+            lambda x: getattr(x.shift(1).rolling(window, min_periods=1), how)()
+        )
+
+    out["h2h_points"] = past(pts, "mean")
+    out["h2h_goal_diff"] = past(gd, "mean")
+    out["h2h_n"] = past(pts, "count").fillna(0).astype(int)
+    return out

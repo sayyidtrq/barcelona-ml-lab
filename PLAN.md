@@ -23,9 +23,9 @@ Legenda: `[ ]` belum, `[x]` selesai. Kerjakan berurutan; tiap fase punya kriteri
 
 ## Fase 2 - EDA & fitur pre-match
 - [ ] Notebook `01_eda`: distribusi hasil, kandang vs tandang, tren per musim, kualitas data
-- [ ] Fitur di `src/barca_ml/features/build.py`: form 5 laga (poin, gol, kebobolan), kandang/tandang, hari istirahat, rating/Elo lawan, head-to-head, posisi klasemen sebelum laga
-- [ ] Tes anti-leakage untuk setiap fitur (nilai laga t tidak boleh bergantung pada laga >= t)
-- [ ] Dokumentasikan setiap fitur (arti, sumber, risiko leakage) di `docs/features.md`
+- [x] Fitur di `src/barca_ml/features/build.py`: form 5 laga (poin, gol, kebobolan), kandang/tandang, hari istirahat, rating/Elo lawan, head-to-head, posisi klasemen sebelum laga
+- [x] Tes anti-leakage untuk setiap fitur (nilai laga t tidak boleh bergantung pada laga >= t)
+- [x] Dokumentasikan setiap fitur (arti, sumber, risiko leakage) di `docs/features.md`
 
 **DoD:** tabel fitur siap pakai tanpa leakage, lolos tes.
 
@@ -79,3 +79,4 @@ Legenda: `[ ]` belum, `[x]` selesai. Kerjakan berurutan; tiap fase punya kriteri
 - 2026-10-09: boilerplate dibuat, `CLAUDE.md` dan `PLAN.md` ditulis, EDA lama dibaca dan temuan dicatat.
 - 2026-10-11: pipeline football-data.co.uk (`scripts/fetch_football_data.py`, `barca_ml.data.football_data`) + skema kanonik + tes; lint CI dibereskan. Fetch belum jalan lokal: domain diblokir ISP (perlu VPN/Colab/Actions).
 - 2026-10-20: fitur pre-match Elo liga + hari istirahat (`barca_ml.features.build`) dengan tes anti-leakage, `docs/features.md`; baseline evaluasi (frekuensi train, selalu menang, odds pasar) + Brier multikelas di `barca_ml.models.evaluate`. Fitur Fase 2 yang tersisa: head-to-head, posisi klasemen.
+- 2026-10-20 (dev): posisi klasemen pre-match (`add_standings`) dan head-to-head (`add_head_to_head`), semua dengan tes anti-leakage. Fitur Fase 2 lengkap; notebook `01_eda` menunggu data asli.
