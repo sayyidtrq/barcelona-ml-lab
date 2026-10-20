@@ -81,3 +81,41 @@ def add_rest_days(df: pd.DataFrame) -> pd.DataFrame:
     out = df.sort_values("match_date").copy()
     out["rest_days"] = out["match_date"].diff().dt.days
     return out
+
+
+_TABLE_COLS = ["position", "ppg", "gd_per_game"]
+
+
+def add_standings(matches: pd.DataFrame) -> pd.DataFrame:
+    """Add each side's league table state BEFORE the match (`home_*`/`away_*` columns).
+
+    `position` (1 = top; ties by points, goal difference, goals scored), `ppg` (points per game)
+    and `gd_per_game`. Tables reset every season. Only matches on EARLIER dates count, so games
+    played the same day don't see each other's results. Before a team's first game `ppg` and
+    `gd_per_game` are NaN; `position` then is the order among all season teams (not informative).
+    """
+    out = matches.sort_values("match_date", kind="stable").copy()
+    cols = {f"{side}_{name}": [] for side in ("home", "away") for name in _TABLE_COLS}
+    for _, season_df in out.groupby("season", sort=False):
+        teams = sorted(set(season_df["home_team"]) | set(season_df["away_team"]))
+        table = pd.DataFrame(0, index=teams, columns=["pts", "gd", "gf", "played"])
+        for _, day in season_df.groupby("match_date", sort=True):
+            ranked = table.sort_values(["pts", "gd", "gf"], ascending=False, kind="stable")
+            position = pd.Series(range(1, len(ranked) + 1), index=ranked.index)
+            played = table["played"].where(table["played"] > 0)
+            state = {
+                "position": position,
+                "ppg": table["pts"] / played,
+                "gd_per_game": table["gd"] / played,
+            }
+            for side in ("home", "away"):
+                for name in _TABLE_COLS:
+                    cols[f"{side}_{name}"].extend(state[name][day[f"{side}_team"]].tolist())
+            for row in day.itertuples(index=False):
+                hg, ag = row.home_goals, row.away_goals
+                for team, gf, ga in [(row.home_team, hg, ag), (row.away_team, ag, hg)]:
+                    table.loc[team] += [3 if gf > ga else int(gf == ga), gf - ga, gf, 1]
+    # groupby(season, sort=False) + sorted dates keeps the original (date-sorted) row order
+    for name, values in cols.items():
+        out[name] = values
+    return out
