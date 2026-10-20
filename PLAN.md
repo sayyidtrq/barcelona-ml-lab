@@ -30,7 +30,7 @@ Legenda: `[ ]` belum, `[x]` selesai. Kerjakan berurutan; tiap fase punya kriteri
 **DoD:** tabel fitur siap pakai tanpa leakage, lolos tes.
 
 ## Fase 3 - Klasifikasi
-- [ ] Baseline: kelas mayoritas, "Barca selalu menang", (opsional) probabilitas implisit dari odds
+- [x] Baseline: kelas mayoritas, "Barca selalu menang", (opsional) probabilitas implisit dari odds
 - [ ] Model: logistic regression -> random forest -> XGBoost; tuning dengan **time-series CV**
 - [ ] Evaluasi di hold-out musim terbaru: accuracy, **log loss, Brier**, kurva kalibrasi, confusion matrix
 - [ ] Simpan model terbaik + metadata (versi data, fitur, tanggal) ke `models/`
@@ -78,3 +78,4 @@ Legenda: `[ ]` belum, `[x]` selesai. Kerjakan berurutan; tiap fase punya kriteri
 ## Log progres
 - 2026-10-09: boilerplate dibuat, `CLAUDE.md` dan `PLAN.md` ditulis, EDA lama dibaca dan temuan dicatat.
 - 2026-10-11: pipeline football-data.co.uk (`scripts/fetch_football_data.py`, `barca_ml.data.football_data`) + skema kanonik + tes; lint CI dibereskan. Fetch belum jalan lokal: domain diblokir ISP (perlu VPN/Colab/Actions).
+- 2026-10-20: fitur pre-match Elo liga + hari istirahat (`barca_ml.features.build`) dengan tes anti-leakage, `docs/features.md`; baseline evaluasi (frekuensi train, selalu menang, odds pasar) + Brier multikelas di `barca_ml.models.evaluate`. Fitur Fase 2 yang tersisa: head-to-head, posisi klasemen.
